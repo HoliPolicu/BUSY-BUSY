@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#dceeff">
+  <title>BUSY-BUSY | Mamá, bebé y familia</title>
+  <style>
+    :root {
+      --blue: #dceeff;
+      --yellow: #ffe7a8;
+      --pink: #f8dce7;
+      --dark: #34445a;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--dark);
+      background: #fffaf5;
+    }
+
+    header {
+      text-align: center;
+      padding: 28px 16px 22px;
+      background: var(--blue);
+    }
+
+    .logo {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin: 0;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 24px 16px 12px;
+    }
+
+    .intro h2 { margin-bottom: 8px; }
+
+    .categories {
+      display: flex;
+      gap: 8px;
+      padding: 14px 12px;
+      overflow-x: auto;
+      justify-content: flex-start;
+    }
+
+    .categories button {
+      border: 0;
+      border-radius: 22px;
+      padding: 11px 17px;
+      background: var(--blue);
+      color: var(--dark);
+      font-weight: bold;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .categories button.active {
+      background: var(--yellow);
+    }
+
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 12px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .product {
+      background: white;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 3px 14px #34445a12;
+    }
+
+    .product .emoji {
+      background: var(--pink);
+      border-radius: 14px;
+      min-height: 100px;
+      display: grid;
+      place-items: center;
+      font-size: 42px;
+    }
+
+    .product h3 {
+      font-size: 15px;
+      margin: 12px 0 6px;
+    }
+
+    .price {
+      font-size: 19px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .stock {
+      font-size: 12px;
+      color: #718096;
+      margin-bottom: 12px;
+    }
+
+    .order {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 30px 10px;
+      color: #718096;
+    }
+
+    .secondhand {
+      margin: 28px 14px;
+      padding: 22px;
+      border-radius: 18px;
+      background: var(--pink);
+      text-align: center;
+    }
+
+    .secondhand h2 { margin-top: 0; }
+
+    footer {
+      text-align: center;
+      padding: 24px 14px;
+      background: var(--blue);
+      font-size: 13px;
+    }
+
+    @media (min-width: 650px) {
+      .catalog { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .categories { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="logo">BUSY-BUSY</h1>
+    <p>Todo para mamá, bebé y familia 💛</p>
+  </header>
+
+  <section class="intro">
+    <h2>¡Bienvenidos a BUSY-BUSY!</h2>
+    <p>Encuentra lo que necesitas para ti y tu familia.</p>
+  </section>
+
+  <nav class="categories" id="categories"></nav>
+
+  <main>
+    <section class="catalog" id="catalog"></section>
+
+    <section class="secondhand">
+      <h2>♻️ Ropa de segunda mano</h2>
+      <p>En nuestra tienda física también encontrarás ropa de segunda mano para toda la familia.</p>
+      <p>El surtido cambia constantemente. Disponible únicamente en tienda física. No hacemos envíos de estos artículos.</p>
+    </section>
+  </main>
+
+  <footer>
+    <strong>BUSY-BUSY</strong>
+    <p>Todo para mamá, bebé y familia</p>
+    <p>Pedidos por WhatsApp</p>
+  </footer>
+
+  <script>
+    const WHATSAPP = "5359775607";
+
+    const products = [
+      {
+        name: "Ajustador de lactancia L",
+        category: "MAMÁ",
+        price: 12,
+        stock: 5,
+        emoji: "🤱"
+      },
+      {
+        name: "Ajustador de lactancia M",
+        category: "MAMÁ",
+        price: 12,
+        stock: 5,
+        emoji: "🤱"
+      },
+      {
+        name: "Ajustador de lactancia XL",
+        category: "MAMÁ",
+        price: 10,
+        stock: 1,
+        emoji: "🤱"
+      },
+      {
+        name: "Faja postparto M",
+        category: "MAMÁ",
+        price: 23,
+        stock: 1,
+        emoji: "💗"
+      },
+      {
+        name: "Faja postparto L",
+        category: "MAMÁ",
+        price: 23,
+        stock: 1,
+        emoji: "💗"
+      },
+      {
+        name: "Almohadillas de lactancia",
+        category: "MAMÁ",
+        price: 6,
+        stock: 2,
+        emoji: "🌸",
+        unit: "paquete"
+      },
+      {
+        name: "Licra embarazada",
+        category: "MAMÁ",
+        price: 25,
+        stock: 1,
+        emoji: "🤰"
+      },
+      {
+        name: "Mono embarazada L",
+        category: "MAMÁ",
+        price: 21,
+        stock: 1,
+        emoji: "👗"
+      }
+    ];
+
+    let selectedCategory = "TODOS";
+
+    function availableCategories() {
+      return ["TODOS", ...new Set(
+        products
+          .filter(p => p.stock > 0 && p.price > 0)
+          .map(p => p.category)
+      )];
+    }
+
+    function renderCategories() {
+      const container = document.getElementById("categories");
+      container.innerHTML = "";
+
+      availableCategories().forEach(category => {
+        const button = document.createElement("button");
+        button.textContent = category;
+        button.className = selectedCategory === category ? "active" : "";
+        button.onclick = () => {
+          selectedCategory = category;
+          renderCategories();
+          renderProducts();
+        };
+        container.appendChild(button);
+      });
+    }
+
+    function renderProducts() {
+      const catalog = document.getElementById("catalog");
+      catalog.innerHTML = "";
+
+      const visible = products.filter(p =>
+        p.stock > 0 &&
+        p.price > 0 &&
+        (selectedCategory === "TODOS" || p.category === selectedCategory)
+      );
+
+      if (!visible.length) {
+        catalog.innerHTML = '<p class="empty">Próximamente encontrarás nuevos productos 💛</p>';
+        return;
+      }
+
+      visible.forEach(product => {
+        const message = encodeURIComponent(
+          "Hola, BUSY-BUSY. Me interesa: " +
+          product.name +
+          ". ¿Está disponible?"
+        );
+
+        const card = document.createElement("article");
+        card.className = "product";
+        card.innerHTML = `
+          <div class="emoji">${product.emoji}</div>
+          <h3>${product.name}</h3>
+          <div class="price">$${product.price.toFixed(2)}</div>
+          <div class="stock">Disponible: ${product.stock} ${product.unit || "unidad(es)"}</div>
+          <a class="order"
+             href="https://wa.me/${WHATSAPP}?text=${message}"
+             target="_blank" rel="noopener">
+             Consultar por WhatsApp
+          </a>
+        `;
+        catalog.appendChild(card);
+      });
+    }
+
+    renderCategories();
+    renderProducts();
+  </script>
+</body>
+</html>
